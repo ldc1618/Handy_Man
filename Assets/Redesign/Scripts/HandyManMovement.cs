@@ -15,12 +15,12 @@ public class HandyManMovement : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
+    void FixedUpdate() {
         change = Vector3.zero;  // Reset movement to 0 so accumulation doesn't occur
         // Get both x and y axis inputs for movement
         change.x = Input.GetAxisRaw("Horizontal");
         change.y = Input.GetAxisRaw("Vertical");
-        //Debug.Log(change);
+        Debug.Log(change);
         UpdateAnimation();  // Update Handy Man's animation state based on criteria
     }
 
@@ -42,7 +42,7 @@ public class HandyManMovement : MonoBehaviour {
     void MoveHandyMan() {
         // Move Handy Man's position based on the x and y input with the speed and time passed
         handyManRigidBody.MovePosition(
-            transform.position + change * speed * Time.deltaTime
+            transform.position + change.normalized * speed * Time.fixedDeltaTime
         );
     }
 }

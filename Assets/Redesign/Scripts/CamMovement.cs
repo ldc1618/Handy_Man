@@ -16,7 +16,7 @@ public class CamMovement : MonoBehaviour
     }
 
     // LateUpdate is called once per frame last
-    void LateUpdate() {
+    void FixedUpdate() {
         // Compare cam position to what it's following's position, move it if different
         if (transform.position != subject.position) {
             // Create a position vector so that the z position of the cam is unchanged
