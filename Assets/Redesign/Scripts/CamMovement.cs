@@ -15,7 +15,7 @@ public class CamMovement : MonoBehaviour
         
     }
 
-    // LateUpdate is called once per frame last
+    // FixedUpdate calls ~30 times a second, makes game run smoothly on all systems
     void FixedUpdate() {
         // Compare cam position to what it's following's position, move it if different
         if (transform.position != subject.position) {
