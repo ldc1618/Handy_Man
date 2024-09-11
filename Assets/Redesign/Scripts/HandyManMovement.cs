@@ -64,6 +64,7 @@ public class HandyManMovement : MonoBehaviour {
     /// </summary>
     /// <returns> Waits until grab animation is done </returns>
     private IEnumerator GrabCo() {
+        ActivateHitbox();
         animator.SetBool("grabbing", true);
         currentState = HandyManState.grab;
         yield return null;
@@ -95,8 +96,7 @@ public class HandyManMovement : MonoBehaviour {
     }
 
     /// <summary>
-    /// Update the state for the direction Handy Man faces, and then activate the corresponding
-    /// hitbox
+    /// Update the state for the direction Handy Man is facing
     /// </summary>
     void UpdateDirection() {
         if (change.x > 0) {
@@ -111,7 +111,12 @@ public class HandyManMovement : MonoBehaviour {
         else if (change.y < 0) {
             currentDirection = HandyManDirection.front;
         }
+    }
 
+    /// <summary>
+    /// Activate the correct hitbox given the direction Handy Man is facing
+    /// </summary>
+    void ActivateHitbox() {
         switch (currentDirection) {
             case HandyManDirection.front:
                 FrontHitbox.SetActive(true);
