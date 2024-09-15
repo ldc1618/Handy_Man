@@ -1,6 +1,8 @@
 # Handy Man
 Developed by Luke Chelius
+
 Artwork and Animation by Tom Catalano
+
 Additional help from Matthew Chang and Jessie Chen
 
 Created during RIT's BrickHack 9 hackathon
