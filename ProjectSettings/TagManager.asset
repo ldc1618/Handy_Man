@@ -12,7 +12,7 @@ TagManager:
   - 
   - Water
   - UI
-  - Pickup
+  - Pick Up
   - 
   - 
   - 
@@ -41,6 +41,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Objects
+    uniqueID: 1180349435
     locked: 0
   - name: Player
     uniqueID: 610443985

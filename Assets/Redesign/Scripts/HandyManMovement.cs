@@ -26,6 +26,7 @@ public class HandyManMovement : MonoBehaviour {
     public GameObject LeftHitbox;
     public GameObject RightHitbox;
     public float speed;
+    public Grab grab;                           // Use this to update the Grab script with the correct direction Handy Man is facing
     private Rigidbody2D handyManRigidBody;
     private Vector3 change;
     private Animator animator;
@@ -40,6 +41,10 @@ public class HandyManMovement : MonoBehaviour {
         // Set the direction to down to start
         animator.SetFloat("x", 0);
         animator.SetFloat("y", -1);
+
+        // Set the grab component and default direction
+        grab = gameObject.GetComponent<Grab>();
+        grab.Direction = new Vector2(0, -1);
     }
 
     // Update is called once per frame -- May need to split this into Update and FixedUpdate functions if movement gets stuttery
@@ -50,7 +55,7 @@ public class HandyManMovement : MonoBehaviour {
         change.y = Input.GetAxisRaw("Vertical");
 
         // Change Handy Man's state based on the actions being performed
-        if (Input.GetButtonDown("Attack") && currentState != HandyManState.grab) {
+        if (Input.GetButtonDown("Grab") && currentState != HandyManState.grab) {
             StartCoroutine(GrabCo());
         }
         else if (currentState == HandyManState.run) {
@@ -101,15 +106,19 @@ public class HandyManMovement : MonoBehaviour {
     void UpdateDirection() {
         if (change.x > 0) {
             currentDirection = HandyManDirection.right;
+            grab.Direction = new Vector2(1, 0);
         }
         else if (change.x < 0) {
             currentDirection = HandyManDirection.left;
+            grab.Direction = new Vector2(-1, 0);
         }
         if (change.y > 0) {
             currentDirection = HandyManDirection.back;
+            grab.Direction = new Vector2(0, 1);
         }
         else if (change.y < 0) {
             currentDirection = HandyManDirection.front;
+            grab.Direction = new Vector2(0, -1);
         }
     }
 
