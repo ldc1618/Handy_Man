@@ -1,8 +1,12 @@
 # Handy Man
-By Luke Chelius, Tom Catalano, Matt Chang, and Jessie Chen
+Developed by Luke Chelius
+
+Artwork and Animation by Tom Catalano
+
+Additional help from Matthew Chang and Jessie Chen
 
 Created during RIT's BrickHack 9 hackathon
 
 Handy Man is a prototype game built in Unity where the enemies are the main form of weapons.
 
-This is currently a work in progress, developed in 24 hours during a hackathon.
+This is currently a work in progress, originally developed in 24 hours during a hackathon.
