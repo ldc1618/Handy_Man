@@ -6,7 +6,8 @@ using UnityEngine;
 public enum HandyManState {
     run,
     grab,
-    toss
+    toss,
+    kick
 }
 
 // Enum for the direction Handy Man is facing to activate the correct hitbox
@@ -55,8 +56,8 @@ public class HandyManMovement : MonoBehaviour {
         change.y = Input.GetAxisRaw("Vertical");
 
         // Change Handy Man's state based on the actions being performed
-        if (Input.GetButtonDown("Grab") && currentState != HandyManState.grab) {
-            StartCoroutine(GrabCo());
+        if (Input.GetButtonDown("Kick") && currentState != HandyManState.kick) {
+            StartCoroutine(KickCo());
         }
         else if (currentState == HandyManState.run) {
             UpdateAnimationAndMove();  // Update Handy Man's animation state based on criteria
@@ -64,17 +65,17 @@ public class HandyManMovement : MonoBehaviour {
     }
 
     /// <summary>
-    /// Coroutine function for the grab mechanic that stops the player from doing other
-    /// actions while it is grabbing
+    /// Coroutine function for the kick mechanic that stops the player from doing other
+    /// actions while it is kicking
     /// </summary>
-    /// <returns> Waits until grab animation is done </returns>
-    private IEnumerator GrabCo() {
+    /// <returns> Waits until kick animation is done </returns>
+    private IEnumerator KickCo() {
         ActivateHitbox();
-        animator.SetBool("grabbing", true);
-        currentState = HandyManState.grab;
+        animator.SetBool("kicking", true);
+        currentState = HandyManState.kick;
         yield return null;
-        animator.SetBool("grabbing", false);
-        yield return new WaitForSeconds(.33f);  // Wait for grab animation to end
+        animator.SetBool("kicking", false);
+        yield return new WaitForSeconds(.5f);  // Wait for kick animation to end
         currentState = HandyManState.run;
 
         // Turn off all hitboxes
