@@ -9772,6 +9772,7 @@ MonoBehaviour:
   enemyName: Slime
   baseAttack: 1
   moveSpeed: 1.5
+  currentState: 0
   target: {fileID: 0}
   chaseRadius: 4
   attackRadius: 1.2

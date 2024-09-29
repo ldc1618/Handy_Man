@@ -70,9 +70,6 @@ public class HandyManMovement : MonoBehaviour {
     /// </summary>
     /// <returns> Waits until kick animation is done </returns>
     private IEnumerator KickCo() {
-        // Stop Handy Man from sliding
-        handyManRigidBody.velocity = Vector3.zero;
-
         ActivateHitbox();
         animator.SetBool("kicking", true);
         currentState = HandyManState.kick;
@@ -100,6 +97,9 @@ public class HandyManMovement : MonoBehaviour {
         }
         else
         {
+            // Stop Handy Man from sliding
+            handyManRigidBody.velocity = Vector3.zero;
+
             animator.SetBool("moving", false);
         }
     }
