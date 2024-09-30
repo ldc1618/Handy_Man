@@ -17,13 +17,16 @@ public class EnemyAI : MonoBehaviour {
     public float moveSpeed;
     public EnemyState currentState;
 
-    // Start is called before the first frame update
-    void Start() {
-        
+    public void Knock(Rigidbody2D enemy, float knockTime) {
+        StartCoroutine(KnockbackCo(enemy, knockTime));
     }
 
-    // Update is called once per frame
-    void Update() {
-        
+    private IEnumerator KnockbackCo(Rigidbody2D enemy, float knockTime) {
+        if (enemy != null) {
+            yield return new WaitForSeconds(knockTime);
+            enemy.velocity = Vector2.zero;
+            currentState = EnemyState.idle;
+            enemy.velocity = Vector2.zero;
+        }
     }
 }

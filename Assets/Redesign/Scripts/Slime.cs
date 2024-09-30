@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Slime : EnemyAI {
 
-    public Transform target;        // Identifies the player so the slime can target it
-    public float chaseRadius;       // The radius around the slime where it will chase the player
-    public float attackRadius;      // Radius that the slimes attacks will use
-    public Transform homePosition;  // The position that the slime will return to after the player leaves its radius
-    private Rigidbody2D slimeRigidBody;  // Reference to the slimes rigidbody for movement
+    public Transform target;            // Identifies the player so the slime can target it
+    public float chaseRadius;           // The radius around the slime where it will chase the player
+    public float attackRadius;          // Radius that the slimes attacks will use
+    public Transform homePosition;      // The position that the slime will return to after the player leaves its radius
+    private Rigidbody2D slimeRigidBody; // Reference to the slimes rigidbody for movement
 
     // Start is called before the first frame update
     void Start() {

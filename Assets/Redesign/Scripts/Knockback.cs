@@ -18,24 +18,32 @@ public class Knockback : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.CompareTag("enemy")) {
-            Rigidbody2D enemy = collision.GetComponent<Rigidbody2D>();
-
-            if (enemy != null) {
-                enemy.GetComponent<EnemyAI>().currentState = EnemyState.stagger;
-                Vector2 diff = enemy.transform.position - transform.position;
-                diff = diff.normalized * strength;
-                enemy.AddForce(diff, ForceMode2D.Impulse);
-                StartCoroutine(KnockbackCo(enemy));
-            }
+        // Check for barrel to break
+        if (collision.gameObject.CompareTag("breakable") && this.gameObject.CompareTag("Player")) {
+            collision.GetComponent<Barrel>().Smash();
         }
-    }
 
-    private IEnumerator KnockbackCo(Rigidbody2D enemy) {
-        if (enemy != null) {
-            yield return new WaitForSeconds(knockTime);
-            enemy.velocity = Vector2.zero;
-            enemy.GetComponent<EnemyAI>().currentState = EnemyState.idle;
+        // Check for enemies to knockback
+        if (collision.gameObject.CompareTag("enemy") || collision.gameObject.CompareTag("Player")) {
+            Rigidbody2D hit = collision.GetComponent<Rigidbody2D>();
+
+            if (hit != null) {
+                Vector2 diff = hit.transform.position - transform.position;
+                diff = diff.normalized * strength;
+                hit.AddForce(diff, ForceMode2D.Impulse);
+
+                // Enemy knockback
+                if (collision.gameObject.CompareTag("enemy")) {
+                    hit.GetComponent<EnemyAI>().currentState = EnemyState.stagger;
+                    collision.GetComponent<EnemyAI>().Knock(hit, knockTime);
+                }
+
+                // Player knockback
+                if (collision.gameObject.CompareTag("Player")) {
+                    hit.GetComponent<HandyManMovement>().currentState = HandyManState.stagger;
+                    collision.GetComponent<HandyManMovement>().Knock(knockTime);
+                }
+            }
         }
     }
 }

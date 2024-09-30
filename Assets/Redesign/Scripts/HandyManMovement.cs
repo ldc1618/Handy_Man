@@ -4,10 +4,12 @@ using UnityEngine;
 
 // Enum for player "states" i.e. actions that the player can perform but not concurrently
 public enum HandyManState {
+    idle,
     run,
     grab,
     toss,
-    kick
+    kick,
+    stagger
 }
 
 // Enum for the direction Handy Man is facing to activate the correct hitbox
@@ -56,10 +58,10 @@ public class HandyManMovement : MonoBehaviour {
         change.y = Input.GetAxisRaw("Vertical");
 
         // Change Handy Man's state based on the actions being performed
-        if (Input.GetButtonDown("Kick") && currentState != HandyManState.kick) {
+        if (Input.GetButtonDown("Kick") && currentState != HandyManState.kick && currentState != HandyManState.stagger) {
             StartCoroutine(KickCo());
         }
-        else if (currentState == HandyManState.run) {
+        else if (currentState == HandyManState.run || currentState == HandyManState.idle) { 
             UpdateAnimationAndMove();  // Update Handy Man's animation state based on criteria
         }
     }
@@ -151,5 +153,18 @@ public class HandyManMovement : MonoBehaviour {
         handyManRigidBody.MovePosition(
             transform.position + speed * Time.fixedDeltaTime * change.normalized
         );
+    }
+
+    public void Knock(float knockTime) {
+        StartCoroutine(KnockbackCo(knockTime));
+    }
+
+    private IEnumerator KnockbackCo(float knockTime) {
+        if (handyManRigidBody != null) {
+            yield return new WaitForSeconds(knockTime);
+            handyManRigidBody.velocity = Vector2.zero;
+            currentState = HandyManState.idle;
+            handyManRigidBody.velocity = Vector2.zero;
+        }
     }
 }
